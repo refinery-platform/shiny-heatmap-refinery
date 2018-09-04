@@ -23,8 +23,11 @@ RUN apt-get update && \
 	wget --no-verbose $S3/shiny-server-$VERSION-amd64.deb -O ss-latest.deb && \
 	gdebi -n ss-latest.deb && \
 	rm -f version.txt ss-latest.deb && \
-	R -e "install.packages(c('shiny', 'rmarkdown'), repos='https://cran.rstudio.com/')" && \
 	rm -rf /var/lib/apt/lists/*
+	
+RUN	R -e "install.packages(c('shiny', 'rmarkdown', 'rjson'), repos='https://cran.rstudio.com/')"
+
+# TODO: Is rmarkdown necessary?
 
 COPY shiny-app /srv/shiny-server/my-app/
 COPY shiny-server/shiny-server.sh /usr/bin/shiny-server.sh
