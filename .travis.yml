@@ -5,6 +5,7 @@ cache: packages
 services:
 - docker
 before_install:
+- ls
 - cd context
 script:
 - "./test.sh"
