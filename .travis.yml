@@ -1,0 +1,15 @@
+language: r
+r:
+- 3.4.1
+cache: packages
+services:
+- docker
+before_install:
+- cd context
+script:
+- "./test.sh"
+after_success:
+- "./after_success.sh"
+env:
+  global:
+    secure: D+W+uCaPMuhIatgWOmfHA7bkIOvOOyLYiSG5G7xFfIJ4t/WhxMb5gPxbce5wwjFlVuOnDQldfibcOlgwYDXh6D5S2GeaNGDjweqgnWX8Hw22MgucRVJVYG7LPno4YpbIzIwlF9C5cUrnV6/1YDZi9mW5rVszwjhEZKVcekwHjnJHf9p1ccNZLYCN/xb825Q6ysmYXuzTvGp+NVYE8aWnjEi6wyKPkoiYIGNvHFiBEIOhTz2ZFPbJ6geQv0sJypeW1ocLNweUSG/QCANzUu5cGYLENqTqkM+pZTfds/tz+8yDAz058MUiS1yVU9Z7oxl+S0yDqMAlAKelr4FjMZwRcKY6Sy3O6VZVktpttYCg9aHI65Db8o+vhEJO+tQCxJUFs8syTKev8RhpgE9c9sKgj7GbqpKMa6CA6zexUlpXESLi0DygLCeF5h3q7jYEY32HJjLkFLr+O8aEWm6gSOrbxY6cfVlS1gRx5rRSiupQpIKqxaGc7dkE8xCd41ZijPMNWb9Dl0OxFAx8tqS8JocoF8oElKe36NDsGef5UQXvz7b7pFDHW4bW2gMLMPfs1CbepjGB4P0sM+DF4Gjs4llX8Yrz5oz4CWNV7NK1X7gijCydR0k35AZZqMy8LnOcrSy5Pm0lBQgS/A/LxpJaoy1PeZrIcHUBeL98F6o7aAXgwXY=
