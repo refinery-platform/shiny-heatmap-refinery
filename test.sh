@@ -9,7 +9,17 @@ retry() {
     until curl --silent --fail http://localhost:$PORT/ > /tmp/response.txt; do
         echo "$TRIES: not up yet"
         if (( $TRIES > 10 )); then
+            echo '----------------'
+            echo 'docker logs:'
             $OPT_SUDO docker logs $CONTAINER_NAME
+            
+            echo '----------------'
+            # Shiny doesn't follow Docker logger idiom:
+            # We still need to look at /var/log.
+            echo 'docker exec cat:'
+            docker exec $CONTAINER_NAME sh -c 'cat /var/log/shiny-server/*'
+            
+            echo '----------------'
             die "HTTP requests to app never succeeded"
         fi
         (( TRIES++ ))
