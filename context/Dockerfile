@@ -8,6 +8,7 @@ FROM rocker/tidyverse:3.5.1
 #   Formatting
 #   -t unstable -> (remove)
 #   libcairo2-dev/unstable -> libcairo2-dev
+#   Move install.packages to own line
 RUN apt-get update && \
     apt-get install -y \
         sudo \
