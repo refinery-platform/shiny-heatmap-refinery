@@ -8,18 +8,18 @@ retry() {
     TRY=1
     until curl --silent --fail http://localhost:$PORT/ > /tmp/response.txt; do
         echo "$TRY: not up yet"
-        MAX_TRY=3
-        if [ -z "$TRAVIS" ]; then MAX_TRY=10; fi
+        MAX_TRY=10
+        if [ -z "$TRAVIS" ]; then MAX_TRY=3; fi # Fail quick if local
         if (( $TRY > $MAX_TRY )); then
             echo '----------------'
             echo 'docker logs:'
             $OPT_SUDO docker logs $CONTAINER_NAME
             
             echo '----------------'
-            # Shiny doesn't follow Docker logger idiom:
+            # Shiny doesn't follow Docker log idiom:
             # We still need to look at /var/log.
-            echo 'docker exec cat:'
-            docker exec $CONTAINER_NAME sh -c 'cat /var/log/shiny-server/*'
+            echo 'cat /var/log/shiny-server/*:'
+            docker exec $CONTAINER_NAME sh -c 'ls /var/log/shiny-server; cat /var/log/shiny-server/*'
             
             echo '----------------'
             die "HTTP requests to app never succeeded"
@@ -42,10 +42,11 @@ start docker_run
 ./docker_run.sh
 retry
 echo "docker is responsive"
-ACTUAL_TEXT=`curl http://localhost:8888/`
+ACTUAL_TEXT=`curl http://localhost:$PORT/`
 grep 'Hello World!' <(echo "$ACTUAL_TEXT") || die "No match: $ACTUAL_TEXT"
 
-docker stop $CONTAINER_NAME
-docker rm $CONTAINER_NAME
-echo "container cleaned up"
+# TODO: uncomment
+#docker stop $CONTAINER_NAME
+#docker rm $CONTAINER_NAME
+#echo "container cleaned up"
 end docker_run
