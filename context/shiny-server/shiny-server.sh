@@ -4,7 +4,8 @@
 # https://groups.google.com/forum/#!topic/shiny-discuss/nNs0kztwdWo
 # ... so instead we need to write this to a place where it can be read.
 
-wget -O /tmp/input.json $INPUT_JSON_URL 
+INPUT_PATH=/tmp/input.json
+wget -O $INPUT_PATH $INPUT_JSON_URL || echo $INPUT_JSON > $INPUT_PATH
 
 # Everything below is copy-and-paste from the original:
 # -----------------------------------------------------
